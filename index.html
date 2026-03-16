@@ -467,7 +467,7 @@ function todayString() {        // "YYYY-MM-DD" in Jeddah time
 //  FETCH PRAYER TIMES
 // ─────────────────────────────────────────────
 async function fetchPrayerTimes() {
-  const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(CITY)}&country=${encodeURIComponent(COUNTRY)}&method=${METHOD}`;
+  const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(CITY)}&country=${encodeURIComponent(COUNTRY)}&method=${METHOD}&tune=2,2,2,2,2,2,2,2,2`;
   try {
     const res  = await fetch(url);
     const data = await res.json();
