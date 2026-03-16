@@ -133,6 +133,11 @@
   ]
   </script>
 
+  <!-- Mobile browser chrome colour -->
+  <meta name="theme-color" content="#0a1628" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
   <!-- Favicon emoji -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>" />
 
@@ -377,11 +382,52 @@
     #status-msg.error { color: #e74c3c; }
 
     /* ── Responsive ────────────────────────────────────── */
+
+    /* All phones (≤ 600px) — tighten padding & fonts slightly */
+    @media (max-width: 600px) {
+      body { padding: 12px 12px 32px; }
+      header { padding: 16px 0 8px; }
+      .mosque-icon { font-size: 2.4rem; }
+      header h1 { font-size: 1.35rem; }
+      .clock-bar { padding: 12px 16px; margin: 12px 0 4px; }
+      .next-card { padding: 16px 18px; }
+      .next-card .prayer-name { font-size: 1.3rem; }
+      .next-card .countdown { font-size: 1.7rem; }
+      .prayer-card { padding: 12px 14px; }
+      .prayer-card .ptime { font-size: 1.05rem; }
+    }
+
+    /* Narrow phones (≤ 460px) — stack clock bar for breathing room */
+    @media (max-width: 460px) {
+      .clock-bar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      /* Time takes full top row, centred */
+      .clock-bar .time-col {
+        order: -1;
+        width: 100%;
+        text-align: center;
+        font-size: 2rem;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #1e3560;
+      }
+      /* Date left, Hijri right below the clock */
+      .clock-bar .date-col { font-size: .78rem; }
+      .clock-bar .hijri-col { font-size: .72rem; }
+
+      .next-card .countdown { font-size: 1.55rem; letter-spacing: 1px; }
+      .prayers-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Very small phones (≤ 380px) — single-column prayer grid */
     @media (max-width: 380px) {
-      .clock-bar .time-col { font-size: 1.6rem; }
+      .clock-bar .time-col { font-size: 1.7rem; }
       .prayers-grid { grid-template-columns: 1fr; }
       .fajr-full { grid-column: auto; }
-      .next-card .countdown { font-size: 1.6rem; }
+      .next-card .countdown { font-size: 1.4rem; }
+      .prayer-card .icon { font-size: 1.2rem; margin-right: 8px; }
     }
   </style>
 </head>
@@ -661,10 +707,12 @@ function tick() {
   document.getElementById('live-clock').textContent =
     `${pad(h12)}:${pad(now.getMinutes())}:${pad(now.getSeconds())} ${ampm}`;
 
-  // Gregorian date
-  const dateStr = now.toLocaleDateString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: TZ
-  });
+  // Gregorian date — short format on narrow screens, long on wide
+  const isNarrow = window.innerWidth <= 460;
+  const dateStr = now.toLocaleDateString('en-US', isNarrow
+    ? { weekday: 'short', month: 'short', day: 'numeric', timeZone: TZ }
+    : { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: TZ }
+  );
   document.getElementById('greg-date').textContent = dateStr;
 
   if (Object.keys(prayerTimes).length) updateNextCard();
