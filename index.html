@@ -754,6 +754,14 @@ function tick() {
 //  INIT
 // ─────────────────────────────────────────────
 async function init() {
+  // ── Start clock IMMEDIATELY — never block on the API ──────────────────
+  // Clear any existing interval first (handles retry / day-rollover re-init)
+  if (intervalId) { clearInterval(intervalId); intervalId = null; }
+  try { tick(); } catch(e) { console.error('tick init error:', e); }
+  intervalId = setInterval(() => { try { tick(); } catch(e) { console.error('tick error:', e); } }, 1000);
+  initNotifBanner();
+
+  // ── Load prayer times in the background ───────────────────────────────
   const ok = await fetchPrayerTimes();
   if (ok) {
     nextPrayerKey = computeNextPrayer();
@@ -761,9 +769,6 @@ async function init() {
     renderPrayerCards();
     schedulePrayerNotifications();
   }
-  try { tick(); } catch(e) { console.error('tick init error:', e); }
-  intervalId = setInterval(() => { try { tick(); } catch(e) { console.error('tick error:', e); } }, 1000);
-  initNotifBanner();
 }
 
 init();
