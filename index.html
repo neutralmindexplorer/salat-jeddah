@@ -514,19 +514,16 @@ let loadedDate    = null; // 'YYYY-MM-DD' of loaded data
 //  UTILITIES
 // ─────────────────────────────────────────────
 function jeddahNow() {
-  // Use formatToParts — reliable across all mobile browsers (avoids
-  // the "new Date(localeString)" parsing bug that breaks on iOS/Android)
-  const now  = new Date();
-  const fmt  = new Intl.DateTimeFormat('en-US', {
-    timeZone: TZ,
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false
-  });
-  const p = {};
-  fmt.formatToParts(now).forEach(({ type, value }) => { p[type] = parseInt(value); });
-  // hour24 can be 24 (midnight) in some browsers — normalise to 0
-  return new Date(p.year, p.month - 1, p.day, p.hour % 24, p.minute, p.second);
+  // Jeddah = UTC+3, no DST — ever.
+  // Shift the raw timestamp so that ALL .getHours()/.getMinutes()/.getDate() etc.
+  // return Jeddah values on ANY device regardless of its local timezone.
+  // getTimezoneOffset() = -(local UTC offset in minutes), so:
+  //   UTC-4 device  →  240 + 180 = +420 min added  ✓
+  //   UTC+5 device  → -300 + 180 = -120 min added  ✓
+  //   UTC+3 device  → -180 + 180 =    0 min added  ✓
+  // No Intl API, no locale strings — pure arithmetic, works on every browser.
+  const now = new Date();
+  return new Date(now.getTime() + (now.getTimezoneOffset() + 180) * 60000);
 }
 
 function pad(n) { return String(n).padStart(2, '0'); }
@@ -719,12 +716,16 @@ function tick() {
   document.getElementById('live-clock').textContent =
     `${pad(h12)}:${pad(now.getMinutes())}:${pad(now.getSeconds())} ${ampm}`;
 
-  // Gregorian date — now is already timezone-correct, so NO timeZone option needed
-  const isNarrow = window.innerWidth <= 460;
-  const dateStr = now.toLocaleDateString('en-US', isNarrow
-    ? { weekday: 'short', month: 'short', day: 'numeric' }
-    : { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-  );
+  // Gregorian date — manual arrays, zero toLocaleDateString/Intl dependency
+  const DAY_S  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const DAY_L  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MON_S  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MON_L  = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+  const dw = now.getDay(), mo = now.getMonth(), dt = now.getDate(), yr = now.getFullYear();
+  const dateStr = window.innerWidth <= 460
+    ? `${DAY_S[dw]}, ${MON_S[mo]} ${dt}`
+    : `${DAY_L[dw]}, ${MON_L[mo]} ${dt}, ${yr}`;
   document.getElementById('greg-date').textContent = dateStr;
 
   if (Object.keys(prayerTimes).length) updateNextCard();
