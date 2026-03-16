@@ -559,37 +559,56 @@ function todayString() {        // "YYYY-MM-DD" in Jeddah time
 //  FETCH PRAYER TIMES
 // ─────────────────────────────────────────────
 async function fetchPrayerTimes() {
-  const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(CITY)}&country=${encodeURIComponent(COUNTRY)}&method=${METHOD}&tune=2,2,2,2,2,2,2,2,2`;
-  try {
-    const res  = await fetch(url);
-    const data = await res.json();
-    if (data.code !== 200) throw new Error('Bad response');
+  // Two endpoints: city-name first, lat/lng as fallback (more reliable on some networks)
+  const TUNE = '2,2,2,2,2,2,2,2,2';
+  const URLS = [
+    `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(CITY)}&country=${encodeURIComponent(COUNTRY)}&method=${METHOD}&tune=${TUNE}`,
+    `https://api.aladhan.com/v1/timings?latitude=21.4858&longitude=39.1925&method=${METHOD}&tune=${TUNE}`
+  ];
 
-    const timings = data.data.timings;
-    const meta    = data.data.meta;
-    const hijri   = data.data.date.hijri;
+  const statusEl = document.getElementById('status-msg');
+  statusEl.style.display = 'block';
+  statusEl.className = '';
+  statusEl.textContent = '⏳ Loading prayer times…';
 
-    // Store
-    prayerTimes = {};
-    PRAYERS.forEach(p => { prayerTimes[p.key] = timings[p.key].slice(0, 5); });
+  // Try each URL, retry up to 3 rounds
+  for (let attempt = 0; attempt < 3; attempt++) {
+    for (const url of URLS) {
+      try {
+        const res  = await fetch(url, { cache: 'no-store' });
+        const data = await res.json();
+        if (data.code !== 200) continue;
 
-    loadedDate = todayString();
+        const timings = data.data.timings;
+        const hijri   = data.data.date.hijri;
 
-    // Update Hijri date display
-    document.getElementById('hijri-date').textContent =
-      `${hijri.day} ${HIJRI_MONTHS[parseInt(hijri.month.number)-1]}`;
-    document.getElementById('hijri-month').textContent = hijri.year + ' AH';
+        prayerTimes = {};
+        PRAYERS.forEach(p => { prayerTimes[p.key] = timings[p.key].slice(0, 5); });
+        loadedDate = todayString();
 
-    document.getElementById('status-msg').style.display = 'none';
-    document.getElementById('grid-label').style.display = 'block';
-    renderPrayerCards();
-    return true;
-  } catch (e) {
-    const el = document.getElementById('status-msg');
-    el.textContent = '⚠️ Could not load prayer times. Check your internet connection.';
-    el.className = 'error';
-    return false;
+        document.getElementById('hijri-date').textContent =
+          `${hijri.day} ${HIJRI_MONTHS[parseInt(hijri.month.number)-1]}`;
+        document.getElementById('hijri-month').textContent = hijri.year + ' AH';
+
+        statusEl.style.display = 'none';
+        document.getElementById('grid-label').style.display = 'block';
+        renderPrayerCards();
+        return true;
+      } catch (e) { /* try next */ }
+    }
+    // Wait 2 s between rounds, except after the last one
+    if (attempt < 2) await new Promise(r => setTimeout(r, 2000));
   }
+
+  // All attempts failed — show error with a tap-to-retry button
+  statusEl.style.display = 'block';
+  statusEl.className = 'error';
+  statusEl.innerHTML =
+    '⚠️ Could not load prayer times.<br>' +
+    '<button onclick="init()" style="margin-top:10px;background:var(--accent);color:#000;' +
+    'border:none;border-radius:20px;padding:8px 22px;font-weight:700;font-size:.9rem;cursor:pointer;">' +
+    '↺ Tap to Retry</button>';
+  return false;
 }
 
 // ─────────────────────────────────────────────
