@@ -477,6 +477,16 @@
     }
     #status-msg.error { color: #e74c3c; }
 
+    /* ── CLS prevention — reserve space before JS fills in ── */
+    #next-wrap {
+      width: 100%;
+      max-width: 560px;
+      min-height: 130px;
+    }
+    #prayers-grid {
+      min-height: 220px;
+    }
+
     /* ── Responsive ────────────────────────────────────── */
 
     /* All phones (≤ 600px) — tighten padding & fonts slightly */
@@ -529,14 +539,14 @@
 </head>
 <body>
 
-<header>
-  <div class="mosque-icon">🕌</div>
+<header role="banner">
+  <div class="mosque-icon" aria-hidden="true">🕌</div>
   <h1>Jeddah <span>Salat Times</span></h1>
   <p class="subtitle">مواقيت الصلاة – جدة، المملكة العربية السعودية</p>
 </header>
 
 <!-- Live Clock -->
-<div class="clock-bar">
+<div class="clock-bar" role="region" aria-label="Jeddah live clock and date">
   <div class="date-col">
     <strong id="greg-date">Loading…</strong>
     <span>Jeddah • AST (UTC+3)</span>
@@ -558,14 +568,14 @@
 </div>
 
 <!-- Notification banner -->
-<div id="notif-banner" style="display:none">
+<div id="notif-banner" style="display:none" role="region" aria-label="Prayer notifications">
   <span id="notif-text">🔔 Get notified at each prayer time</span>
-  <button id="notif-btn" onclick="requestNotifPermission()">Enable Notifications</button>
+  <button id="notif-btn" onclick="requestNotifPermission()" aria-label="Enable prayer time notifications">Enable Notifications</button>
 </div>
 
 <!-- Prayer cards (injected by JS) -->
 <div class="grid-label" id="grid-label" style="display:none">Today's Salat Schedule</div>
-<div class="prayers-grid" id="prayers-grid"></div>
+<div class="prayers-grid" id="prayers-grid" role="list" aria-label="Today's prayer times"></div>
 
 <article class="info-article" itemscope itemtype="https://schema.org/Article">
   <h2 itemprop="name">About Jeddah Prayer Times</h2>
@@ -689,6 +699,12 @@ let intervalId    = null;
 let loadedDate    = null; // 'YYYY-MM-DD' of loaded data
 
 // ─────────────────────────────────────────────
+//  VIEWPORT WIDTH CACHE (avoids forced reflow in tick)
+// ─────────────────────────────────────────────
+let viewportWidth = window.innerWidth;
+window.addEventListener('resize', () => { viewportWidth = window.innerWidth; }, { passive: true });
+
+// ─────────────────────────────────────────────
 //  UTILITIES
 // ─────────────────────────────────────────────
 function jeddahNow() {
@@ -738,7 +754,7 @@ function todayString() {        // "YYYY-MM-DD" in Jeddah time
 // ─────────────────────────────────────────────
 async function fetchPrayerTimes() {
   // Two endpoints: city-name first, lat/lng as fallback (more reliable on some networks)
-  const TUNE = '2,2,2,2,2,2,2,2,2';
+  const TUNE = '0,0,0,0,0,0,0,0,0';
   const URLS = [
     `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(CITY)}&country=${encodeURIComponent(COUNTRY)}&method=${METHOD}&tune=${TUNE}`,
     `https://api.aladhan.com/v1/timings?latitude=21.4858&longitude=39.1925&method=${METHOD}&tune=${TUNE}`
@@ -920,7 +936,7 @@ function tick() {
   const MON_L  = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
   const dw = now.getDay(), mo = now.getMonth(), dt = now.getDate(), yr = now.getFullYear();
-  const dateStr = window.innerWidth <= 460
+  const dateStr = viewportWidth <= 460
     ? `${DAY_S[dw]}, ${MON_S[mo]} ${dt}`
     : `${DAY_L[dw]}, ${MON_L[mo]} ${dt}, ${yr}`;
   document.getElementById('greg-date').textContent = dateStr;
