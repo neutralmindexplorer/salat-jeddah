@@ -11,7 +11,7 @@
     Title tag: 55 chars — primary keyword first, city, action word.
     Appears as the blue link in Google results.
   -->
-  <title>Jeddah Prayer Times Today – Live Salat Countdown 2025</title>
+  <title>Jeddah Prayer Times Today – Live Salat Countdown 2026</title>
 
   <!--
     Meta description: 155 chars — includes primary + secondary keywords,
@@ -33,7 +33,17 @@
     مواقيت الصلاة جدة, أوقات الصلاة جدة اليوم,
     صلاة الفجر جدة, صلاة الظهر جدة, صلاة العصر جدة,
     صلاة المغرب جدة, صلاة العشاء جدة,
-    prayer times KSA, salat times Saudi Arabia 2025
+    prayer times KSA, salat times Saudi Arabia 2025,
+    iqama time Jeddah, iqama times Jeddah today,
+    asr iqama time Jeddah, Fajr iqama Jeddah, Maghrib iqama Jeddah,
+    iqama schedule Jeddah, iqama Saudi Arabia, salat iqama Jeddah,
+    waktu solat jeddah, waktu solat jeddah hari ini, jadual solat jeddah,
+    waktu sembahyang jeddah, solat jeddah hari ini,
+    jam sholat jeddah, waktu sholat jeddah hari ini, jadwal sholat jeddah,
+    jadwal adzan jeddah, jadwal adzan, adzan jeddah hari ini, waktu adzan jeddah,
+    Cidde namaz vakitleri, Cidde namaz vakti bugün, Cidde ezan vakitleri,
+    Cidde sabah namazı vakti, Cidde akşam namazı vakti, Cidde yatsı vakti,
+    Suudi Arabistan namaz vakitleri, Cidde imsak vakti
   " />
 
   <meta name="author" content="Jeddah Salat Tracker" />
@@ -75,6 +85,26 @@
   ════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Jeddah Salat Times",
+      "url": "https://neutralmindexplorer.github.io/salat-jeddah/",
+      "description": "Live Islamic prayer times for Jeddah, Saudi Arabia with countdown, Iqama times and Salat guides.",
+      "inLanguage": ["en", "ar", "ms", "tr"],
+      "hasPart": [
+        {
+          "@type": "WebApplication",
+          "name": "Jeddah Prayer Times App",
+          "url": "https://neutralmindexplorer.github.io/salat-jeddah/"
+        },
+        {
+          "@type": "Article",
+          "name": "Benefits of Salat — Spiritual & Physical Power of the 5 Daily Prayers",
+          "url": "https://neutralmindexplorer.github.io/salat-jeddah/benefits-of-salat/"
+        }
+      ]
+    },
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -120,6 +150,30 @@
             "@type": "Answer",
             "text": "There are 5 obligatory daily prayers: Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night)."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Cidde namaz vakitleri bugün — Cidde'de namaz vakitleri nedir?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cidde namaz vakitleri her gün değişmektedir. Bu uygulama, Suudi Arabistan'da resmi hesaplama yöntemi olan Ümmü'l-Kurâ Üniversitesi yöntemini kullanarak Cidde'deki günlük Fajr (Sabah), Dhuhr (Öğle), Asr (İkindi), Maghrib (Akşam) ve Isha (Yatsı) vakitlerini gerçek zamanlı olarak göstermektedir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Waktu solat Jeddah hari ini — berapa waktu solat di Jeddah?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Waktu solat di Jeddah hari ini boleh dilihat secara langsung di aplikasi ini — Subuh, Zohor, Asar, Maghrib dan Isyak dengan kiraan masa mundur ke waktu solat seterusnya. Dikira menggunakan kaedah Umm Al-Qura, kaedah rasmi di Arab Saudi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Iqama time for Asr in Jeddah?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Iqama (the second call to prayer, signalling the start of congregational prayer) typically follows the Adhan by 15–20 minutes. This app shows the estimated Iqama time for each prayer in Jeddah, displayed below the countdown timer."
+          }
         }
       ]
     },
@@ -127,7 +181,8 @@
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://neutralmindexplorer.github.io/salat-jeddah/" }
+        { "@type": "ListItem", "position": 1, "name": "Jeddah Salat Times", "item": "https://neutralmindexplorer.github.io/salat-jeddah/" },
+        { "@type": "ListItem", "position": 2, "name": "Benefits of Salat", "item": "https://neutralmindexplorer.github.io/salat-jeddah/benefits-of-salat/" }
       ]
     }
   ]
@@ -332,6 +387,47 @@
       transition: width 1s linear;
     }
 
+    /* ── Article / Info Section ────────────────────────── */
+    .info-article {
+      width: 100%;
+      max-width: 560px;
+      margin: 28px 0 8px;
+      background: var(--card);
+      border: 1px solid #1e3560;
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      font-size: .9rem;
+      line-height: 1.75;
+      color: #c2cedc;
+    }
+    .info-article h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      letter-spacing: .3px;
+    }
+    .info-article h3 {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 16px 0 6px;
+    }
+    .info-article p { margin-bottom: 10px; }
+    .info-article p:last-child { margin-bottom: 0; }
+    .info-article strong { color: var(--accent2); }
+    .info-article .lang-note {
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+      margin: 14px 0;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    @media (max-width: 600px) {
+      .info-article { padding: 18px 16px; font-size: .85rem; }
+      .info-article h2 { font-size: 1.05rem; }
+    }
+
     /* ── Footer ────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -470,6 +566,88 @@
 <!-- Prayer cards (injected by JS) -->
 <div class="grid-label" id="grid-label" style="display:none">Today's Salat Schedule</div>
 <div class="prayers-grid" id="prayers-grid"></div>
+
+<article class="info-article" itemscope itemtype="https://schema.org/Article">
+  <h2 itemprop="name">About Jeddah Prayer Times</h2>
+
+  <p itemprop="description">
+    This app shows accurate <strong>prayer times for Jeddah, Saudi Arabia</strong> — Fajr, Dhuhr,
+    Asr, Maghrib and Isha — with a live countdown to the next Salat and estimated Iqama time.
+    Times update automatically every day at midnight.
+  </p>
+
+  <h3>How Are Jeddah Prayer Times Calculated?</h3>
+  <p>
+    <strong>Jeddah salah times</strong> are calculated using the <strong>Umm Al-Qura University
+    method</strong> — the official standard across Saudi Arabia. Times are based on Jeddah's
+    coordinates (21.49°N, 39.19°E) and shift by 1–3 minutes daily as the sun's position changes
+    with the seasons. Makkah, just 85 km away, differs by roughly 1–2 minutes due to its slightly
+    different longitude. Jeddah operates on <strong>AST (UTC+3)</strong> year-round with no
+    daylight saving time.
+  </p>
+
+  <h3>What Is Iqama Time in Jeddah?</h3>
+  <p>
+    The <strong>Iqama</strong> (إقامة) is the second call to prayer that signals the start of
+    congregational Salat inside the mosque — typically <strong>15–20 minutes</strong> after the
+    Adhan. Whether you are at King Abdulaziz International Airport, the Jeddah Corniche, or
+    Al-Balad old town, the <strong>azan time in Jeddah</strong> applies uniformly across the
+    entire city.
+  </p>
+
+  <h3>The Five Daily Prayers in Jeddah</h3>
+  <p>
+    The five daily prayers — known as <strong>Salat</strong> in Arabic and <strong>Namaz</strong>
+    in Urdu, Persian and Turkish — follow a precise daily rhythm in Jeddah.
+    <strong>Fajr time in Jeddah</strong> (صلاة الفجر جدة) falls before sunrise, beginning the
+    day with renewal and clarity. <strong>Dhuhr time in Jeddah</strong> arrives at midday when
+    mental fatigue builds. <strong>Asr time in Jeddah</strong> bridges the afternoon into evening.
+    <strong>Maghrib time in Jeddah</strong> — marked by the <strong>اذان المغرب جدة</strong>
+    (Maghrib Adhan in Jeddah) — is the most anticipated moment of the day, performed just after
+    sunset over the Red Sea. <strong>Isha time in Jeddah</strong> closes the day in peace.
+    Each prayer carries its own spiritual and physical benefit —
+    <a href="benefits-of-salat/index.html" style="color:var(--accent);">read the full guide →</a>
+  </p>
+
+  <div class="lang-note">
+    <strong>Jadwal Sholat &amp; Jadwal Adzan Jeddah</strong> (Indonesia/Malaysia) — Aplikasi ini
+    menampilkan jadwal sholat Jeddah hari ini secara langsung: Subuh, Dzuhur, Ashar, Maghrib dan
+    Isya, lengkap dengan jadwal adzan Jeddah dan hitung mundur waktu sholat berikutnya.
+    Dihitung menggunakan metode Umm Al-Qura — metode resmi di Arab Saudi. Gratis tanpa daftar.
+  </div>
+
+  <div class="lang-note">
+    <strong>Cidde Namaz Vakitleri</strong> (Türkçe) — Bu uygulama, Cidde şehri için günlük
+    Sabah, Öğle, İkindi, Akşam ve Yatsı namaz vakitlerini Ümmü'l-Kurâ yöntemiyle gerçek
+    zamanlı göstermektedir. Cidde ezan vakitleri ve imsak vakti de dahildir.
+  </div>
+</article>
+
+<a href="benefits-of-salat/index.html" style="
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    max-width:560px;
+    background:#0f2044;
+    border:1px solid #1e3560;
+    border-radius:16px;
+    padding:16px 22px;
+    margin:14px 0 0;
+    text-decoration:none;
+    color:#e8e8e8;
+    transition:border-color .2s;
+  "
+  onmouseover="this.style.borderColor='#c9a84c'"
+  onmouseout="this.style.borderColor='#1e3560'"
+>
+  <div>
+    <div style="font-size:.8rem;color:#7a8fa6;margin-bottom:3px;">ARTICLE</div>
+    <div style="font-size:.95rem;font-weight:600;color:#e8c97a;">📖 Benefits of Salat</div>
+    <div style="font-size:.8rem;color:#7a8fa6;margin-top:2px;">Why each prayer matters — spiritually &amp; physically</div>
+  </div>
+  <span style="color:#c9a84c;font-size:1.2rem;">→</span>
+</a>
 
 <footer>
   <p>Prayer times via <a href="https://aladhan.com" target="_blank" rel="noopener">AlAdhan API</a> — Umm Al-Qura method (Saudi Arabia)</p>
@@ -779,19 +957,42 @@ init();
 let notifTimers = [];
 
 function initNotifBanner() {
-  if (!('Notification' in window)) return; // browser doesn't support
   const banner = document.getElementById('notif-banner');
   const btn    = document.getElementById('notif-btn');
-  banner.style.display = 'flex';
 
-  if (Notification.permission === 'granted') {
-    btn.textContent = '✓ Notifications On';
-    btn.classList.add('granted');
-    document.getElementById('notif-text').textContent = '🔔 Prayer notifications are enabled';
-  } else if (Notification.permission === 'denied') {
-    document.getElementById('notif-text').textContent = '🔕 Notifications blocked — enable in browser settings';
-    btn.style.display = 'none';
+  // ── Standard Notifications API (Android Chrome, Desktop) ──────────────
+  if ('Notification' in window) {
+    banner.style.display = 'flex';
+    if (Notification.permission === 'granted') {
+      btn.textContent = '✓ Notifications On';
+      btn.classList.add('granted');
+      document.getElementById('notif-text').textContent = '🔔 Prayer notifications are enabled';
+    } else if (Notification.permission === 'denied') {
+      document.getElementById('notif-text').textContent = '🔕 Notifications blocked — enable in browser settings';
+      btn.style.display = 'none';
+    }
+    return;
   }
+
+  // ── iOS Safari: Notification API unavailable in regular browser ────────
+  // Notifications work only after "Add to Home Screen" (PWA mode)
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (isIOS) {
+    banner.style.display = 'flex';
+    document.getElementById('notif-text').textContent =
+      '📱 Add to Home Screen to enable prayer notifications';
+    btn.textContent = 'How?';
+    btn.style.background = 'var(--muted)';
+    btn.onclick = () => alert(
+      'To get prayer notifications on iPhone:\n\n' +
+      '1. Tap the Share button (the box with an arrow) at the bottom of Safari\n' +
+      '2. Scroll down and tap "Add to Home Screen"\n' +
+      '3. Tap Add — then open the app from your Home Screen\n\n' +
+      'Notifications will work automatically from the Home Screen icon.'
+    );
+  }
+  // Other unsupported browsers: banner stays hidden
 }
 
 async function requestNotifPermission() {
