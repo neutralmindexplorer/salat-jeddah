@@ -188,12 +188,16 @@
   ]
   </script>
 
-  <!-- Mobile browser chrome colour -->
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0a1628" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Jeddah Salat" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
-  <!-- Favicon emoji -->
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>" />
 
   <style>
@@ -428,6 +432,29 @@
       .info-article h2 { font-size: 1.05rem; }
     }
 
+    /* ── Back to Top ───────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.4);
+      transition: background .2s, transform .2s;
+      z-index: 100;
+    }
+    #back-to-top:hover { background: var(--accent2); transform: translateY(-2px); }
+    #back-to-top.visible { display: flex; }
+
     /* ── Footer ────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -615,8 +642,15 @@
     <strong>Maghrib time in Jeddah</strong> — marked by the <strong>اذان المغرب جدة</strong>
     (Maghrib Adhan in Jeddah) — is the most anticipated moment of the day, performed just after
     sunset over the Red Sea. <strong>Isha time in Jeddah</strong> closes the day in peace.
-    Each prayer carries its own spiritual and physical benefit —
-    <a href="benefits-of-salat/index.html" style="color:var(--accent);">read the full guide →</a>
+  </p>
+  <p>
+    Each prayer is timed not by coincidence but by a precise alignment of the human body, the
+    soul, and the movement of the sun. Understanding why <strong>prayer time in Jeddah</strong>
+    follows this exact schedule — and what each Salat does for the body and mind — is explained
+    in detail in our guide:
+    <a href="benefits-of-salat/index.html" style="color:var(--accent);text-decoration:underline;">
+      The Spiritual &amp; Physical Benefits of the 5 Daily Prayers →
+    </a>
   </p>
 
   <div class="lang-note">
@@ -663,6 +697,15 @@
   <p>Prayer times via <a href="https://aladhan.com" target="_blank" rel="noopener">AlAdhan API</a> — Umm Al-Qura method (Saudi Arabia)</p>
   <p>Times are for <strong>Jeddah, Saudi Arabia</strong> &nbsp;|&nbsp; Auto-refreshes at midnight</p>
 </footer>
+
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('back-to-top')
+      .classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+</script>
 
 <script>
 // ─────────────────────────────────────────────
@@ -966,6 +1009,16 @@ async function init() {
 }
 
 init();
+
+// ─────────────────────────────────────────────
+//  SERVICE WORKER
+// ─────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/salat-jeddah/sw.js')
+      .catch(err => console.warn('SW registration failed:', err));
+  });
+}
 
 // ─────────────────────────────────────────────
 //  NOTIFICATIONS

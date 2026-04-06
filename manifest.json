@@ -1,0 +1,51 @@
+{
+  "name": "Jeddah Salat Times",
+  "short_name": "Jeddah Salat",
+  "description": "Live Islamic prayer times for Jeddah, Saudi Arabia — Fajr, Dhuhr, Asr, Maghrib & Isha with real-time countdown.",
+  "start_url": "/salat-jeddah/",
+  "scope": "/salat-jeddah/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "lang": "en",
+  "categories": ["lifestyle", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "og-preview.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Jeddah Salat Times app showing live prayer countdown"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Today's Prayer Times",
+      "short_name": "Prayer Times",
+      "description": "View today's Jeddah prayer times",
+      "url": "/salat-jeddah/",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Benefits of Salat",
+      "short_name": "Benefits",
+      "description": "Spiritual and physical benefits of the 5 daily prayers",
+      "url": "/salat-jeddah/benefits-of-salat/",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
